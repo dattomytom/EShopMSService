@@ -1,0 +1,30 @@
+﻿using BuildingBLocks.CQRS;
+using Catalog.API.Models;
+
+namespace Catalog.API.Products.CreateProduct
+{
+    public record CreateProductCommand(string Name, List<string> Category, string Description, string ImangeFile,decimal Price)
+        :ICommand<CreateProductResult>;
+    public record CreateProductResult(Guid Id);
+
+
+    internal class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+    {
+        public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+        {
+            //create Product
+            //save Db
+            //return CreateProductResult result
+            var product = new Product
+            {
+                Name = command.Name,
+                Category = command.Category,
+                Description = command.Description,
+                ImageFile = command.ImangeFile,
+                Price = command.Price
+
+            };
+           return new CreateProductResult(Guid.NewGuid());  
+        }
+    }
+}
