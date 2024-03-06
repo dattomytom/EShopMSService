@@ -21,14 +21,14 @@ namespace Catalog.API.Products.UpdateProduct
         }
     }
     public record UpdateProductResult(bool IsSuccess);
-    public class UpdateProductHandler(IDocumentSession session,ILogger<UpdateProductHandler> logger) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
+    public class UpdateProductHandler(IDocumentSession session) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
             if(product == null)
             {
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(command.Id);
             }
             product.Name = command.Name;
             product.Category = command.Category;
