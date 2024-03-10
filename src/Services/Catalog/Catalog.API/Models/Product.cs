@@ -1,7 +1,10 @@
-﻿namespace Catalog.API.Models
+﻿using Marten.Schema;
+
+namespace Catalog.API.Models
 {
     public class Product
     {
+        [Identity]
         public Guid Id { get; set; }
         public string Name { get; set; } = default!;
         public List<string> Category { get; set; } = new();

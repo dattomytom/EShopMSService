@@ -13,15 +13,15 @@ namespace Catalog.API.Data
         public async Task Populate(IDocumentStore store, CancellationToken cancellation)
         {
             using var session = store.LightweightSession();
-            if(await session.Query<Product>().AnyAsync())
+            if (await session.Query<Product>().AnyAsync())
             {
                 return;
             }
             // Marten UPSERT will cater for existing records
-            session.Store(GetPreconfiguredProducts);
+            session.Store(GetPreconfiguredProducts());
             await session.SaveChangesAsync();
         }
-        public static IEnumerable<Product> GetPreconfiguredProducts() => new List<Product>()
+        private static IEnumerable<Product> GetPreconfiguredProducts() => new List<Product>()
             {
                 new Product()
                 {

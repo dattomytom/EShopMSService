@@ -20,7 +20,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddMarten(option =>
 {
-    option.Connection(builder.Configuration.GetConnectionString("Database"));
+    option.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
 if (builder.Environment.IsDevelopment())
