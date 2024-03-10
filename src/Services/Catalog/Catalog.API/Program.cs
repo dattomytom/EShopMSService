@@ -39,6 +39,6 @@ app.UseHealthChecks("/health",
     {
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 
-    }); ;
+    });
 
 app.Run();
